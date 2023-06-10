@@ -78,7 +78,7 @@ namespace Generics.Infrastructure.EntityFramework.Repositories {
         }
 
         public async Task Remove<T>(uint id) where T : class
-            => await Remove<T>(await Get<T>(id));
+            => await Remove(await Get<T>(id));
 
         public async Task RemoveRange(IEnumerable<object> entities) {
             _dbContext.RemoveRange(entities);

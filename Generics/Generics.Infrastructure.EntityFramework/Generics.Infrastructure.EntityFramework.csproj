@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Generics.Infrastructure\Generics.Infrastructure.csproj" />
+    <ProjectReference Include="..\Generics.Specifications.EntityFramework\Generics.Specifications.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>

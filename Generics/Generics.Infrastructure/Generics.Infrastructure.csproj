@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Generics.Specifications\Generics.Specifications.csproj" />
+  </ItemGroup>
+
 </Project>
