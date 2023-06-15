@@ -43,6 +43,9 @@ namespace Generics.Infrastructure.EntityFramework.Repositories {
         public async Task<uint> Count<T, TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default) where T : class
             => (uint)await _dbContext.Set<T>().Apply(specification).CountAsync(cancellationToken);
 
+        public async Task<bool> Exists<T>(uint id, CancellationToken cancellationToken = default) where T : class
+            => await Find<T>(id, cancellationToken) is not null;
+
         public async Task<T?> Find<T>(uint id, CancellationToken cancellationToken = default) where T : class
             => await _dbContext.FindAsync<T>(id, cancellationToken);
 

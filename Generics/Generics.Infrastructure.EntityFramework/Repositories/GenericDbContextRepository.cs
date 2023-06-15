@@ -35,6 +35,9 @@ namespace Generics.Infrastructure.EntityFramework.Repositories {
         public async Task<uint> Count<TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default)
             => (uint)await _dbSet.Apply(specification).CountAsync(cancellationToken);
 
+        public async Task<bool> Exists(uint id, CancellationToken cancellationToken = default)
+            => await Find(id, cancellationToken) is not null;
+
         public async Task<T?> Find(uint id, CancellationToken cancellationToken = default)
             => await _dbSet.FindAsync(new object[] { id }, cancellationToken: cancellationToken);
 

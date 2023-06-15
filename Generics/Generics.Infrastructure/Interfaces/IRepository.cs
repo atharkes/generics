@@ -2,6 +2,7 @@
 
 namespace Generics.Infrastructure.Interfaces {
     public interface IRepository {
+        Task<bool> Exists<T>(uint id, CancellationToken cancellationToken = default) where T : class;
         Task<T?> Find<T>(uint id, CancellationToken cancellationToken = default) where T : class;
         Task<T> Get<T>(uint id, CancellationToken cancellationToken = default) where T : class;
 
@@ -39,6 +40,7 @@ namespace Generics.Infrastructure.Interfaces {
     }
 
     public interface IRepository<T> {
+        Task<bool> Exists(uint id, CancellationToken cancellationToken = default);
         Task<T?> Find(uint id, CancellationToken cancellationToken = default);
         Task<T> Get(uint id, CancellationToken cancellationToken = default);
 
