@@ -6,8 +6,8 @@ namespace Generics.Specifications.Queries {
         public IIncludedQuery<T, TProperty> Include<TProperty>(Expression<Func<T, TProperty>> selector)
             => new IncludeQuery<T, TProperty>(this, selector);
 
-        public IOrderedQuery<T> Order<TProperty>(Expression<Func<T, TProperty>> selector, bool descending) where TProperty : IComparable<TProperty>
-            => new OrderQuery<T, TProperty>(this, selector, descending);
+        public IOrderedQuery<T> OrderBy<TProperty>(Expression<Func<T, TProperty>> selector, bool descending) where TProperty : IComparable<TProperty>
+            => new OrderByQuery<T, TProperty>(this, selector, descending);
 
         public IQuery<T, TProperty> Select<TProperty>(Expression<Func<T, TProperty>> selector)
             => new SelectQuery<T, T, TProperty>(this, selector);
@@ -31,7 +31,7 @@ namespace Generics.Specifications.Queries {
         public IIncludedQuery<TBase, T, TProperty> Include<TProperty>(Expression<Func<T, TProperty>> selector)
             => new IncludeQuery<TBase, T, TProperty>(this, selector);
 
-        public IOrderedQuery<TBase, T> Order<TProperty>(Expression<Func<T, TProperty>> selector, bool descending) where TProperty : IComparable<TProperty>
+        public IOrderedQuery<TBase, T> OrderBy<TProperty>(Expression<Func<T, TProperty>> selector, bool descending) where TProperty : IComparable<TProperty>
             => new OrderQuery<TBase, T, TProperty>(this, selector, descending);
 
         public IQuery<TBase, TProperty> Select<TProperty>(Expression<Func<T, TProperty>> selector)
