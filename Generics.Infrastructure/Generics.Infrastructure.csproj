@@ -4,7 +4,25 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<EnablePackageValidation>true</EnablePackageValidation>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<Authors>Theo Harkes</Authors>
+	<Description>Powerful generic repositories including Generics.Specifications.</Description>
+	<PackageProjectUrl>https://github.com/atharkes/generics</PackageProjectUrl>
+	<PackageTags>repository, spec, specification, ddd, ef, efcore, entity, framework</PackageTags>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Generics.Specifications\Generics.Specifications.csproj" />

@@ -1,12 +1,27 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<EnablePackageValidation>true</EnablePackageValidation>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<Authors>Theo Harkes</Authors>
+	<Description>Entity Framework hook for Generics.Specifications.</Description>
+	<PackageProjectUrl>https://github.com/atharkes/generics</PackageProjectUrl>
+	<PackageTags>spec, specification, immutable, repository, ddd, ef, efcore, entity, framework</PackageTags>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="QueryInterceptor.EntityFrameworkCore" Version="7.0.8" />
   </ItemGroup>
