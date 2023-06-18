@@ -4,8 +4,12 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  
 	<EnablePackageValidation>true</EnablePackageValidation>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+	<PackageId>Generics.Specifications</PackageId>
+	<Version>0.0.1</Version>
 	<Authors>Theo Harkes</Authors>
 	<Description>A powerful and immutable specification pattern for generic repositories.</Description>
 	<PackageProjectUrl>https://github.com/atharkes/generics</PackageProjectUrl>

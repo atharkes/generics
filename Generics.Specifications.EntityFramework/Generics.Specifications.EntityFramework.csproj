@@ -4,8 +4,12 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	
 	<EnablePackageValidation>true</EnablePackageValidation>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+	<PackageId>Generics.Specifications.EntityFramework</PackageId>
+	<Version>0.0.1</Version>
 	<Authors>Theo Harkes</Authors>
 	<Description>Entity Framework hook for Generics.Specifications.</Description>
 	<PackageProjectUrl>https://github.com/atharkes/generics</PackageProjectUrl>
@@ -22,7 +26,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.7" />
     <PackageReference Include="QueryInterceptor.EntityFrameworkCore" Version="7.0.8" />
   </ItemGroup>
 

@@ -4,8 +4,12 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	
 	<EnablePackageValidation>true</EnablePackageValidation>
-	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  
+	<PackageId>Generics.Infrastructure.EntityFramework</PackageId>
+	<Version>0.0.1</Version>
 	<Authors>Theo Harkes</Authors>
 	<Description>Powerful generic repositories including Generics.Specifications.</Description>
 	<PackageProjectUrl>https://github.com/atharkes/generics</PackageProjectUrl>
