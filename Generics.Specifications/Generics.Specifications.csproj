@@ -4,18 +4,25 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	  
-	<EnablePackageValidation>true</EnablePackageValidation>
-	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 
-	<PackageId>Generics.Specifications</PackageId>
-	<Version>0.0.1</Version>
-	<Authors>Theo Harkes</Authors>
-	<Description>A powerful and immutable specification pattern for generic repositories.</Description>
-	<PackageProjectUrl>https://github.com/atharkes/generics</PackageProjectUrl>
-	<PackageTags>spec, specification, immutable, repository, ddd</PackageTags>
-	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <PackageId>Generics.Specifications</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Theo Harkes</Authors>
+    <Description>A powerful and immutable specification pattern for generic repositories.</Description>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl>https://cdn-icons-png.flaticon.com/128/4296/4296577.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/atharkes/generics</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/atharkes/generics</RepositoryUrl>
+    <PackageTags>spec, specification, immutable, repository, ddd</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="icon.png" Pack="true" Visible="false" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
