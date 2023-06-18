@@ -4,7 +4,37 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <PackageId>Generics.Infrastructure</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Theo Harkes</Authors>
+    <Description>Powerful generic repositories including Generics.Specifications.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl>https://cdn-icons-png.flaticon.com/128/2232/2232189.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/atharkes/generics</PackageProjectUrl>
+    <PackageTags>repository, spec, specification, ddd, ef, efcore, entity, framework</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="icon.png" Pack="true" Visible="false" PackagePath="\" />
+    <None Update="README.md" Pack="true" Visible="false" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Generics.Specifications\Generics.Specifications.csproj" />
