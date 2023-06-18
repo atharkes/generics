@@ -46,5 +46,5 @@ public async Task<IEnumerable<TResult>> List<TResult>(ISpecification<T, TResult>
 ```
 
 ## Credits
-* Repository icon used from <a href="https://www.flaticon.com/free-icons/database" title="database icons">Database icons created by Smashicons - Flaticon</a>
-* Specification icon used from <a href="https://www.flaticon.com/free-icons/specification" title="specification icons">Specification icons created by Freepik - Flaticon</a>
+* Generics.Infrastructure & Generics.Infrastructure.EntityFramework Icon: <a href="https://www.flaticon.com/free-icons/database" title="database icons">Database icons created by Smashicons - Flaticon</a>
+* Generics.Specifications & Generics.Specifications.EntityFramework Icon: <a href="https://www.flaticon.com/free-icons/specification" title="specification icons">Specification icons created by Freepik - Flaticon</a>
