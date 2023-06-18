@@ -64,8 +64,8 @@ jobs:
         run: meziantou.validate-nuget-package (Get-ChildItem "${{ env.nuGetDirectory }}/*.nupkg")
 
   deploy:
-    # Publish when push to master
-    if: github.ref == 'refs/heads/master'
+    # Publish when push to main
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs: [ build, validate ]
     steps:
