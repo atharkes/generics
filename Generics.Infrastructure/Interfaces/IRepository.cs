@@ -23,19 +23,19 @@ namespace Generics.Infrastructure.Interfaces {
         Task<IEnumerable<T>> List<T>(CancellationToken cancellationToken = default) where T : class;
         Task<IEnumerable<TResult>> List<T, TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default) where T : class;
 
-        Task Update<T>(T entity, CancellationToken cancellationToken = default) where T : class;
-        Task UpdateRange<T>(IEnumerable<T> entities, CancellationToken cancellationToken = default) where T : class;
+        Task Update<T>(T item, CancellationToken cancellationToken = default) where T : class;
+        Task UpdateRange<T>(IEnumerable<T> items, CancellationToken cancellationToken = default) where T : class;
 
-        Task Add(object entity, CancellationToken cancellationToken = default);
-        Task Add<T>(T entity, CancellationToken cancellationToken = default) where T : class;
-        Task AddRange(IEnumerable<object> entities, CancellationToken cancellationToken = default);
-        Task AddRange<T>(IEnumerable<T> entities, CancellationToken cancellationToken = default) where T : class;
+        Task Add(object item, CancellationToken cancellationToken = default);
+        Task Add<T>(T item, CancellationToken cancellationToken = default) where T : class;
+        Task AddRange(IEnumerable<object> items, CancellationToken cancellationToken = default);
+        Task AddRange<T>(IEnumerable<T> items, CancellationToken cancellationToken = default) where T : class;
 
-        Task Remove(object entity, CancellationToken cancellationToken = default);
-        Task Remove<T>(T entity, CancellationToken cancellationToken = default) where T : class;
+        Task Remove(object item, CancellationToken cancellationToken = default);
+        Task Remove<T>(T item, CancellationToken cancellationToken = default) where T : class;
         Task Remove<T>(uint id, CancellationToken cancellationToken = default) where T : class;
-        Task RemoveRange(IEnumerable<object> entities, CancellationToken cancellationToken = default);
-        Task RemoveRange<T>(IEnumerable<T> entities, CancellationToken cancellationToken = default) where T : class;
+        Task RemoveRange(IEnumerable<object> items, CancellationToken cancellationToken = default);
+        Task RemoveRange<T>(IEnumerable<T> items, CancellationToken cancellationToken = default) where T : class;
         Task RemoveRange<T>(IEnumerable<uint> ids, CancellationToken cancellationToken = default) where T : class;
     }
 
@@ -61,14 +61,14 @@ namespace Generics.Infrastructure.Interfaces {
         Task<IEnumerable<T>> List(CancellationToken cancellationToken = default);
         Task<IEnumerable<TResult>> List<TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default);
 
-        Task Update(T entity, CancellationToken cancellationToken = default);
-        Task UpdateRange(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+        Task Update(T item, CancellationToken cancellationToken = default);
+        Task UpdateRange(IEnumerable<T> items, CancellationToken cancellationToken = default);
 
-        Task Add(T entity, CancellationToken cancellationToken = default);
-        Task AddRange(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+        Task Add(T item, CancellationToken cancellationToken = default);
+        Task AddRange(IEnumerable<T> items, CancellationToken cancellationToken = default);
 
-        Task Remove(T entity, CancellationToken cancellationToken = default);
-        Task RemoveRange(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+        Task Remove(T item, CancellationToken cancellationToken = default);
+        Task RemoveRange(IEnumerable<T> items, CancellationToken cancellationToken = default);
         Task Remove(uint id, CancellationToken cancellationToken = default);
         Task RemoveRange(IEnumerable<uint> ids, CancellationToken cancellationToken = default);
     }
