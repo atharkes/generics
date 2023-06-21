@@ -107,8 +107,14 @@ namespace Generics.Infrastructure.EntityFramework.Repositories
         public async Task RemoveRange<T>(IEnumerable<uint> ids, CancellationToken cancellationToken = default) where T : class
             => await RemoveRange(await Task.WhenAll(ids.Select(id => Get<T>(id, cancellationToken))), cancellationToken);
 
+        public async Task<T> Single<T>(CancellationToken cancellationToken = default) where T : class
+            => await _dbContext.Set<T>().SingleAsync(cancellationToken);
+
         public async Task<TResult> Single<T, TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default) where T : class
             => await _dbContext.Set<T>().Apply(specification).SingleAsync(cancellationToken);
+
+        public async Task<T?> SingleOrDefault<T>(CancellationToken cancellationToken = default) where T : class
+            => await _dbContext.Set<T>().SingleOrDefaultAsync(cancellationToken);
 
         public async Task<TResult?> SingleOrDefault<T, TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default) where T : class
             => await _dbContext.Set<T>().Apply(specification).SingleOrDefaultAsync(cancellationToken);
