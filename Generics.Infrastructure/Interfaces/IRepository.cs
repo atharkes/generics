@@ -1,9 +1,7 @@
 ﻿using Generics.Specifications.Interfaces;
 
-namespace Generics.Infrastructure.Interfaces
-{
-    public interface IRepository
-    {
+namespace Generics.Infrastructure.Interfaces {
+    public interface IRepository {
         Task<bool> Contains<T>(uint id, CancellationToken cancellationToken = default) where T : class;
         Task<T?> Find<T>(uint id, CancellationToken cancellationToken = default) where T : class;
         Task<T> Get<T>(uint id, CancellationToken cancellationToken = default) where T : class;
@@ -43,8 +41,7 @@ namespace Generics.Infrastructure.Interfaces
         Task RemoveRange<T>(IEnumerable<uint> ids, CancellationToken cancellationToken = default) where T : class;
     }
 
-    public interface IRepository<T>
-    {
+    public interface IRepository<T> {
         Task<bool> Contains(uint id, CancellationToken cancellationToken = default);
         Task<T?> Find(uint id, CancellationToken cancellationToken = default);
         Task<T> Get(uint id, CancellationToken cancellationToken = default);
