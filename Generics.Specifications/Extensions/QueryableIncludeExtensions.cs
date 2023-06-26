@@ -15,12 +15,12 @@ namespace Generics.Specifications.Extensions {
             && methodInfo.Name == nameof(Include);
 
         public static bool IsThenIncludeAfterEnumerableMethod(MethodInfo methodInfo) {
-            if (methodInfo.DeclaringType != typeof(QueryableIncludeExtensions)) return false;
-            if (methodInfo.Name != nameof(ThenInclude)) return false;
+            if (methodInfo.DeclaringType != typeof(QueryableIncludeExtensions) || methodInfo.Name != nameof(ThenInclude)) {
+                return false;
+            }
 
             var typeInfo = methodInfo.GetParameters()[0].ParameterType.GenericTypeArguments[1];
-            return typeInfo.IsGenericType
-                && typeInfo.GetGenericTypeDefinition() == typeof(IEnumerable<>);
+            return typeInfo.IsGenericType && typeInfo.GetGenericTypeDefinition() == typeof(IEnumerable<>);
         }
 
         public static bool IsThenIncludeAfterReferenceMethod(MethodInfo methodInfo)
@@ -46,9 +46,8 @@ namespace Generics.Specifications.Extensions {
         sealed class IncludableQueryable<T, TProperty> : IIncludableQueryable<T, TProperty>, IAsyncEnumerable<T> {
             readonly IQueryable<T> _queryable;
 
-            public IncludableQueryable(IQueryable<T> queryable) {
-                _queryable = queryable;
-            }
+            public IncludableQueryable(IQueryable<T> queryable)
+                => _queryable = queryable;
 
             public Expression Expression => _queryable.Expression;
             public Type ElementType => _queryable.ElementType;

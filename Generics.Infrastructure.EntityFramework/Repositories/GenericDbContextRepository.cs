@@ -3,19 +3,16 @@ using Generics.Specifications.EntityFramework;
 using Generics.Specifications.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Generics.Infrastructure.EntityFramework.Repositories
-{
+namespace Generics.Infrastructure.EntityFramework.Repositories {
     /// <summary> A <see cref="GenericDbContextRepository{T}"/> wrapping a <see cref="DbContext"/> and <see cref="DbSet{TEntity}"/>. </summary>
     /// <typeparam name="T">The type to operate on in this <see cref="GenericDbContextRepository{T}"/>.</typeparam>
-    public class GenericDbContextRepository<T> : IRepository<T> where T : class
-    {
+    public class GenericDbContextRepository<T> : IRepository<T> where T : class {
         private readonly DbContext _dbContext;
         private readonly DbSet<T> _dbSet;
 
         /// <summary> Initialize a new instance of the <see cref="GenericDbContextRepository{T}"/> using a <paramref name="dbContext"/>. </summary>
         /// <param name="dbContext">The <see cref="DbContext"/> used in this <see cref="GenericDbContextRepository{T}"/>.</param>
-        public GenericDbContextRepository(DbContext dbContext)
-        {
+        public GenericDbContextRepository(DbContext dbContext) {
             _dbContext = dbContext;
             _dbSet = dbContext.Set<T>();
         }
@@ -24,20 +21,18 @@ namespace Generics.Infrastructure.EntityFramework.Repositories
         /// <param name="item">The <typeparamref name="T"/> to add to the <see cref="GenericDbContextRepository{T}"/>.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task"/> that represents adding the <paramref name="item"/> to the <see cref="GenericDbContextRepository{T}"/>.</returns>
-        public async Task Add(T item, CancellationToken cancellationToken = default)
-        {
-            await _dbSet.AddAsync(item, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+        public async Task Add(T item, CancellationToken cancellationToken = default) {
+            _ = await _dbSet.AddAsync(item, cancellationToken);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
         /// <summary> Add a range of <paramref name="items"/> to the <see cref="GenericDbContextRepository{T}"/>. </summary>
         /// <param name="items">The <typeparamref name="T"/>s to add to the <see cref="GenericDbContextRepository{T}"/>.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task"/> that represents adding the <paramref name="items"/> to the <see cref="GenericDbContextRepository{T}"/>.</returns>
-        public async Task AddRange(IEnumerable<T> items, CancellationToken cancellationToken = default)
-        {
+        public async Task AddRange(IEnumerable<T> items, CancellationToken cancellationToken = default) {
             await _dbSet.AddRangeAsync(items, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
         /// <summary> Determine whether there is any <typeparamref name="T"/> in the <see cref="GenericDbContextRepository{T}"/>. </summary>
@@ -138,10 +133,9 @@ namespace Generics.Infrastructure.EntityFramework.Repositories
         /// <param name="item">The <typeparamref name="T"/> to remove from the <see cref="GenericDbContextRepository{T}"/>.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task"/> that represents removing the <paramref name="item"/> from the <see cref="GenericDbContextRepository{T}"/>.</returns>
-        public async Task Remove(T item, CancellationToken cancellationToken = default)
-        {
-            _dbSet.Remove(item);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+        public async Task Remove(T item, CancellationToken cancellationToken = default) {
+            _ = _dbSet.Remove(item);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
         /// <summary> Remove a <typeparamref name="T"/> with the specified <typeparamref name="T"/> from the <see cref="GenericDbContextRepository{T}"/>. </summary>
@@ -155,10 +149,9 @@ namespace Generics.Infrastructure.EntityFramework.Repositories
         /// <param name="items">The <typeparamref name="T"/>s to remove from the <see cref="GenericDbContextRepository{T}"/>.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task"/> that represents removing the <paramref name="items"/> from the <see cref="GenericDbContextRepository{T}"/>.</returns>
-        public async Task RemoveRange(IEnumerable<T> items, CancellationToken cancellationToken = default)
-        {
+        public async Task RemoveRange(IEnumerable<T> items, CancellationToken cancellationToken = default) {
             _dbSet.RemoveRange(items);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
         /// <summary> Remove multiple <typeparamref name="T"/>s by their respective <paramref name="ids"/> from the <see cref="GenericDbContextRepository{T}"/>. </summary>
@@ -204,20 +197,18 @@ namespace Generics.Infrastructure.EntityFramework.Repositories
         /// <param name="item">The <typeparamref name="T"/> to update.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task"/> that represents updating the <paramref name="item"/> in the <see cref="GenericDbContextRepository{T}"/>.</returns>
-        public async Task Update(T item, CancellationToken cancellationToken = default)
-        {
-            _dbSet.Update(item);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+        public async Task Update(T item, CancellationToken cancellationToken = default) {
+            _ = _dbSet.Update(item);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
         /// <summary> Update multiple <paramref name="items"/> in the <see cref="GenericDbContextRepository{T}"/>. </summary>
         /// <param name="items">The <see cref="IEnumerable{T}"/> of <typeparamref name="T"/>s to update.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task"/> that represents updating the <paramref name="items"/> in the <see cref="GenericDbContextRepository{T}"/>.</returns>
-        public async Task UpdateRange(IEnumerable<T> items, CancellationToken cancellationToken = default)
-        {
+        public async Task UpdateRange(IEnumerable<T> items, CancellationToken cancellationToken = default) {
             _dbSet.UpdateRange(items);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

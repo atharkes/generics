@@ -19,20 +19,21 @@ namespace Generics.Specifications.EntityFramework {
             = typeof(EntityFrameworkQueryableExtensions).GetTypeInfo().GetDeclaredMethods(nameof(EntityFrameworkQueryableExtensions.ThenInclude))
             .Single(mi => mi.GetGenericArguments().Length == 3 && mi.GetParameters().First().ParameterType.GenericTypeArguments[1].IsGenericParameter);
 
-
         protected override Expression VisitMethodCall(MethodCallExpression node) {
             var arguments = new List<Expression>();
-            foreach (var nextNode in node.Arguments) arguments.Add(Visit(nextNode));
+            foreach (var nextNode in node.Arguments) {
+                arguments.Add(Visit(nextNode));
+            }
 
             var method = node.Method;
             var genericArguments = method.GetGenericArguments();
-            if (QueryableIncludeExtensions.IsIncludeMethod(method))
-                return Expression.Call(null, s_includeMethodInfo.MakeGenericMethod(genericArguments), arguments);
-            else if (QueryableIncludeExtensions.IsThenIncludeAfterEnumerableMethod(method))
-                return Expression.Call(null, s_thenIncludeAfterEnumerableMethodInfo.MakeGenericMethod(genericArguments), arguments);
-            else if (QueryableIncludeExtensions.IsThenIncludeAfterReferenceMethod(method))
-                return Expression.Call(null, s_thenIncludeAfterReferenceMethodInfo.MakeGenericMethod(genericArguments), arguments);
-            else return base.VisitMethodCall(node);
+            return QueryableIncludeExtensions.IsIncludeMethod(method)
+                ? Expression.Call(null, s_includeMethodInfo.MakeGenericMethod(genericArguments), arguments)
+                : QueryableIncludeExtensions.IsThenIncludeAfterEnumerableMethod(method)
+                    ? Expression.Call(null, s_thenIncludeAfterEnumerableMethodInfo.MakeGenericMethod(genericArguments), arguments)
+                    : QueryableIncludeExtensions.IsThenIncludeAfterReferenceMethod(method)
+                        ? Expression.Call(null, s_thenIncludeAfterReferenceMethodInfo.MakeGenericMethod(genericArguments), arguments)
+                        : base.VisitMethodCall(node);
         }
     }
 }

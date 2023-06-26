@@ -3,39 +3,32 @@ using Generics.Specifications.EntityFramework;
 using Generics.Specifications.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Generics.Infrastructure.EntityFramework.Repositories
-{
-    public class DbContextRepository : IRepository
-    {
+namespace Generics.Infrastructure.EntityFramework.Repositories {
+    public class DbContextRepository : IRepository {
         private readonly DbContext _dbContext;
 
-        public DbContextRepository(DbContext dbContext)
-        {
+        public DbContextRepository(DbContext dbContext) {
             _dbContext = dbContext;
         }
 
-        public async Task Add(object item, CancellationToken cancellationToken = default)
-        {
-            await _dbContext.AddAsync(item, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+        public async Task Add(object item, CancellationToken cancellationToken = default) {
+            _ = await _dbContext.AddAsync(item, cancellationToken);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task Add<T>(T item, CancellationToken cancellationToken = default) where T : class
-        {
-            await _dbContext.Set<T>().AddAsync(item, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+        public async Task Add<T>(T item, CancellationToken cancellationToken = default) where T : class {
+            _ = await _dbContext.Set<T>().AddAsync(item, cancellationToken);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task AddRange(IEnumerable<object> items, CancellationToken cancellationToken = default)
-        {
+        public async Task AddRange(IEnumerable<object> items, CancellationToken cancellationToken = default) {
             await _dbContext.AddRangeAsync(items, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task AddRange<T>(IEnumerable<T> items, CancellationToken cancellationToken = default) where T : class
-        {
+        public async Task AddRange<T>(IEnumerable<T> items, CancellationToken cancellationToken = default) where T : class {
             await _dbContext.Set<T>().AddRangeAsync(items, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<bool> Any<T>(CancellationToken cancellationToken = default) where T : class
@@ -77,31 +70,27 @@ namespace Generics.Infrastructure.EntityFramework.Repositories
         public async Task<IEnumerable<TResult>> List<T, TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default) where T : class
             => await _dbContext.Set<T>().Apply(specification).ToListAsync(cancellationToken);
 
-        public async Task Remove(object item, CancellationToken cancellationToken = default)
-        {
-            _dbContext.Remove(item);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+        public async Task Remove(object item, CancellationToken cancellationToken = default) {
+            _ = _dbContext.Remove(item);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task Remove<T>(T item, CancellationToken cancellationToken = default) where T : class
-        {
-            _dbContext.Set<T>().Remove(item);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+        public async Task Remove<T>(T item, CancellationToken cancellationToken = default) where T : class {
+            _ = _dbContext.Set<T>().Remove(item);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task Remove<T>(uint id, CancellationToken cancellationToken = default) where T : class
             => await Remove(await Get<T>(id, cancellationToken), cancellationToken);
 
-        public async Task RemoveRange(IEnumerable<object> items, CancellationToken cancellationToken = default)
-        {
+        public async Task RemoveRange(IEnumerable<object> items, CancellationToken cancellationToken = default) {
             _dbContext.RemoveRange(items);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task RemoveRange<T>(IEnumerable<T> items, CancellationToken cancellationToken = default) where T : class
-        {
+        public async Task RemoveRange<T>(IEnumerable<T> items, CancellationToken cancellationToken = default) where T : class {
             _dbContext.Set<T>().RemoveRange(items);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task RemoveRange<T>(IEnumerable<uint> ids, CancellationToken cancellationToken = default) where T : class
@@ -119,16 +108,14 @@ namespace Generics.Infrastructure.EntityFramework.Repositories
         public async Task<TResult?> SingleOrDefault<T, TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default) where T : class
             => await _dbContext.Set<T>().Apply(specification).SingleOrDefaultAsync(cancellationToken);
 
-        public async Task Update<T>(T item, CancellationToken cancellationToken = default) where T : class
-        {
-            _dbContext.Set<T>().Update(item);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+        public async Task Update<T>(T item, CancellationToken cancellationToken = default) where T : class {
+            _ = _dbContext.Set<T>().Update(item);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task UpdateRange<T>(IEnumerable<T> items, CancellationToken cancellationToken = default) where T : class
-        {
+        public async Task UpdateRange<T>(IEnumerable<T> items, CancellationToken cancellationToken = default) where T : class {
             _dbContext.Set<T>().UpdateRange(items);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }
