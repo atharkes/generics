@@ -11,7 +11,7 @@ namespace Generics.Infrastructure.EntityFramework.Repositories {
         private readonly DbSet<T> _dbSet;
 
         /// <summary> Initialize a new instance of the <see cref="GenericDbContextRepository{T}"/> using a <paramref name="dbContext"/>. </summary>
-        /// <param name="dbContext">The <see cref="DbContext"/> used in this <see cref="GenericDbContextRepository{T}"/>.</param>
+        /// <param name="dbContext">The <see cref="DbContext"/> used in the <see cref="GenericDbContextRepository{T}"/> instance .</param>
         public GenericDbContextRepository(DbContext dbContext) {
             _dbContext = dbContext;
             _dbSet = dbContext.Set<T>();
@@ -42,7 +42,7 @@ namespace Generics.Infrastructure.EntityFramework.Repositories {
             => await _dbSet.AnyAsync(cancellationToken);
 
         /// <summary> Determine whether there is any <typeparamref name="TResult"/> that satisfies the <paramref name="specification"/> in the <see cref="GenericDbContextRepository{T}"/>. </summary>
-        /// <typeparam name="TResult">The type of result as determined by the <paramref name="specification"/>.</typeparam>
+        /// <typeparam name="TResult">The <see cref="Type"/> of the result as determined by the <paramref name="specification"/>.</typeparam>
         /// <param name="specification">The <see cref="ISpecification{TBase, TResult}"/> that specifies which items to look for.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task{TResult}"/> that represents checking whether there is any <typeparamref name="TResult"/> that satisfies the <paramref name="specification"/> in the <see cref="GenericDbContextRepository{T}"/>.</returns>
@@ -56,14 +56,14 @@ namespace Generics.Infrastructure.EntityFramework.Repositories {
         public async Task<bool> Contains(uint id, CancellationToken cancellationToken = default)
             => await Find(id, cancellationToken) is not null;
 
-        /// <summary> Determine the count of <typeparamref name="T"/> items in the <see cref="GenericDbContextRepository{T}"/>. </summary>
+        /// <summary> Determine the count of <typeparamref name="T"/>s in the <see cref="GenericDbContextRepository{T}"/>. </summary>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task{TResult}"/> that represents getting the count of <typeparamref name="T"/> items in the <see cref="GenericDbContextRepository{T}"/>.</returns>
         public async Task<uint> Count(CancellationToken cancellationToken = default)
             => (uint)await _dbSet.CountAsync(cancellationToken);
 
         /// <summary> Determine the count of <typeparamref name="TResult"/>s that satisfy the <paramref name="specification"/> in the <see cref="GenericDbContextRepository{T}"/>. </summary>
-        /// <typeparam name="TResult">The type of result as determined by the <paramref name="specification"/>.</typeparam>
+        /// <typeparam name="TResult">The <see cref="Type"/> of the result as determined by the <paramref name="specification"/>.</typeparam>
         /// <param name="specification">The <see cref="ISpecification{TBase, TResult}"/> that specifies which items to look for.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task{TResult}"/> that represents getting the count of <typeparamref name="TResult"/>s that satisfy the <paramref name="specification"/> in the <see cref="GenericDbContextRepository{T}"/>.</returns>
@@ -85,7 +85,7 @@ namespace Generics.Infrastructure.EntityFramework.Repositories {
             => await _dbSet.FirstAsync(cancellationToken);
 
         /// <summary> Get the first <typeparamref name="TResult"/> that satisfies the <paramref name="specification"/> from the <see cref="GenericDbContextRepository{T}"/>. </summary>
-        /// <typeparam name="TResult">The type of result as determined by the <paramref name="specification"/>.</typeparam>
+        /// <typeparam name="TResult">The <see cref="Type"/> of the result as determined by the <paramref name="specification"/>.</typeparam>
         /// <param name="specification">The <see cref="ISpecification{TBase, TResult}"/> that specifies which items to look for.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task{TResult}"/> that represents getting the first <typeparamref name="TResult"/> that satisfies the <paramref name="specification"/> from the <see cref="GenericDbContextRepository{T}"/>.</returns>
@@ -100,7 +100,7 @@ namespace Generics.Infrastructure.EntityFramework.Repositories {
             => await _dbSet.FirstOrDefaultAsync(cancellationToken);
 
         /// <summary> Get the first <typeparamref name="TResult"/> in the <see cref="GenericDbContextRepository{T}"/> that satisfies the <paramref name="specification"/>. </summary>
-        /// <typeparam name="TResult">The type of result as determined by the <paramref name="specification"/>.</typeparam>
+        /// <typeparam name="TResult">The <see cref="Type"/> of the result as determined by the <paramref name="specification"/>.</typeparam>
         /// <param name="specification">The <see cref="ISpecification{TBase, TResult}"/> that specifies which items to look for.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task{TResult}"/> that represents getting the first <typeparamref name="TResult"/> in the <see cref="GenericDbContextRepository{T}"/> that satisfies the <paramref name="specification"/>, or <see langword="default"/>(<typeparamref name="TResult"/>) if there wasn't any.</returns>
@@ -122,7 +122,7 @@ namespace Generics.Infrastructure.EntityFramework.Repositories {
             => await _dbSet.ToListAsync(cancellationToken);
 
         /// <summary> Get all <typeparamref name="TResult"/>s that satisfy the <paramref name="specification"/> from the <see cref="GenericDbContextRepository{T}"/>. </summary>
-        /// <typeparam name="TResult">The type of result as determined by the <paramref name="specification"/>.</typeparam>
+        /// <typeparam name="TResult">The <see cref="Type"/> of the result as determined by the <paramref name="specification"/>.</typeparam>
         /// <param name="specification">The <see cref="ISpecification{TBase, TResult}"/> that specifies which items to look for.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task{TResult}"/> that represents getting all <typeparamref name="TResult"/>s that satisfy the <paramref name="specification"/> from the <see cref="GenericDbContextRepository{T}"/>.</returns>
@@ -138,7 +138,7 @@ namespace Generics.Infrastructure.EntityFramework.Repositories {
             _ = await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        /// <summary> Remove a <typeparamref name="T"/> with the specified <typeparamref name="T"/> from the <see cref="GenericDbContextRepository{T}"/>. </summary>
+        /// <summary> Remove a <typeparamref name="T"/> with the specified <paramref name="id"/> from the <see cref="GenericDbContextRepository{T}"/>. </summary>
         /// <param name="id">The identifier of the <typeparamref name="T"/> to remove from the <see cref="GenericDbContextRepository{T}"/>.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task"/> that represents removing the <typeparamref name="T"/> with the specified <paramref name="id"/> from the <see cref="GenericDbContextRepository{T}"/>.</returns>
@@ -169,7 +169,7 @@ namespace Generics.Infrastructure.EntityFramework.Repositories {
             => await _dbSet.SingleAsync(cancellationToken);
 
         /// <summary> Get a single <typeparamref name="TResult"/> that satisfies the <paramref name="specification"/> from the <see cref="GenericDbContextRepository{T}"/>. </summary>
-        /// <typeparam name="TResult">The type of result as determined by the <paramref name="specification"/>.</typeparam>
+        /// <typeparam name="TResult">The <see cref="Type"/> of the result as determined by the <paramref name="specification"/>.</typeparam>
         /// <param name="specification">The <see cref="ISpecification{TBase, TResult}"/> that specifies which items to look for.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task{TResult}"/> that represents getting a single <typeparamref name="TResult"/> that satisfies the <paramref name="specification"/> from the <see cref="GenericDbContextRepository{T}"/>.</returns>
@@ -185,7 +185,7 @@ namespace Generics.Infrastructure.EntityFramework.Repositories {
             => await _dbSet.SingleOrDefaultAsync(cancellationToken);
 
         /// <summary> Get a single <typeparamref name="TResult"/> that satisfies the <paramref name="specification"/> from the <see cref="GenericDbContextRepository{T}"/>. </summary>
-        /// <typeparam name="TResult">The type of result as determined by the <paramref name="specification"/>.</typeparam>
+        /// <typeparam name="TResult">The <see cref="Type"/> of the result as determined by the <paramref name="specification"/>.</typeparam>
         /// <param name="specification">The <see cref="ISpecification{TBase, TResult}"/> that specifies which items to look for.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task{TResult}"/> that represents getting a single <typeparamref name="TResult"/> that satisfies the <paramref name="specification"/> from the <see cref="GenericDbContextRepository{T}"/>.</returns>
