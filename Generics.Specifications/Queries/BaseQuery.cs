@@ -5,7 +5,7 @@ namespace Generics.Specifications.Queries {
         public virtual IQueryable<T> Apply(IQueryable<T> queryable) => queryable;
     }
 
-    public abstract class BaseQuery<TBase, T> : IQuery<TBase, T> {
-        public abstract IQueryable<T> Apply(IQueryable<TBase> queryable);
+    public abstract class BaseQuery<TBase, TResult> : IQuery<TBase, TResult> {
+        public abstract IQueryable<TResult> Apply(IQueryable<TBase> queryable);
     }
 }

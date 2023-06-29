@@ -19,19 +19,19 @@ namespace Generics.Specifications.Queries {
             => Child.Apply(queryable).ThenBy(Selector, Descending);
     }
 
-    public class ThenByQuery<TBase, T, TProperty> : RecursiveQuery<TBase, T>, IOrderedQuery<TBase, T> {
-        public Expression<Func<T, TProperty>> Selector { get; }
+    public class ThenByQuery<TBase, TResult, TProperty> : RecursiveQuery<TBase, TResult>, IOrderedQuery<TBase, TResult> {
+        public Expression<Func<TResult, TProperty>> Selector { get; }
         public bool Descending { get; }
 
-        protected override IOrderedQuery<TBase, T> Child { get; }
+        protected override IOrderedQuery<TBase, TResult> Child { get; }
 
-        public ThenByQuery(IOrderedQuery<TBase, T> child, Expression<Func<T, TProperty>> selector, bool descending) : base(child) {
+        public ThenByQuery(IOrderedQuery<TBase, TResult> child, Expression<Func<TResult, TProperty>> selector, bool descending) : base(child) {
             Child = child;
             Selector = selector;
             Descending = descending;
         }
 
-        public override IOrderedQueryable<T> Apply(IQueryable<TBase> queryable)
+        public override IOrderedQueryable<TResult> Apply(IQueryable<TBase> queryable)
             => Child.Apply(queryable).ThenBy(Selector, Descending);
     }
 }

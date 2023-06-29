@@ -13,13 +13,13 @@ namespace Generics.Specifications.Queries {
             => base.Apply(queryable).Include(Selector);
     }
 
-    public class IncludeQuery<TBase, T, TProperty> : RecursiveQuery<TBase, T>, IIncludedQuery<TBase, T, TProperty> {
-        public Expression<Func<T, TProperty>> Selector { get; }
+    public class IncludeQuery<TBase, TResult, TProperty> : RecursiveQuery<TBase, TResult>, IIncludedQuery<TBase, TResult, TProperty> {
+        public Expression<Func<TResult, TProperty>> Selector { get; }
 
-        public IncludeQuery(IQuery<TBase, T> child, Expression<Func<T, TProperty>> selector) : base(child)
+        public IncludeQuery(IQuery<TBase, TResult> child, Expression<Func<TResult, TProperty>> selector) : base(child)
             => Selector = selector;
 
-        public override IIncludableQueryable<T, TProperty> Apply(IQueryable<TBase> queryable)
+        public override IIncludableQueryable<TResult, TProperty> Apply(IQueryable<TBase> queryable)
             => base.Apply(queryable).Include(Selector);
     }
 }

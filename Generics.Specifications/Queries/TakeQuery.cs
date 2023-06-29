@@ -11,13 +11,13 @@ namespace Generics.Specifications.Queries {
             => base.Apply(queryable).Take((int)Amount);
     }
 
-    public class TakeQuery<TBase, T> : RecursiveQuery<TBase, T> {
+    public class TakeQuery<TBase, TResult> : RecursiveQuery<TBase, TResult> {
         public uint Amount { get; }
 
-        public TakeQuery(IQuery<TBase, T> child, uint amount) : base(child)
+        public TakeQuery(IQuery<TBase, TResult> child, uint amount) : base(child)
             => Amount = amount;
 
-        public override IQueryable<T> Apply(IQueryable<TBase> queryable)
+        public override IQueryable<TResult> Apply(IQueryable<TBase> queryable)
             => base.Apply(queryable).Take((int)Amount);
     }
 }

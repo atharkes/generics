@@ -11,20 +11,20 @@ namespace Generics.Specifications.Queries {
             => Child.Apply(queryable);
     }
 
-    public class RecursiveQuery<TBase, T> : BaseQuery<TBase, T> {
-        protected virtual IQuery<TBase, T> Child { get; }
+    public class RecursiveQuery<TBase, TResult> : BaseQuery<TBase, TResult> {
+        protected virtual IQuery<TBase, TResult> Child { get; }
 
-        protected RecursiveQuery(IQuery<TBase, T> child)
+        protected RecursiveQuery(IQuery<TBase, TResult> child)
             => Child = child;
 
-        public override IQueryable<T> Apply(IQueryable<TBase> queryable)
+        public override IQueryable<TResult> Apply(IQueryable<TBase> queryable)
             => Child.Apply(queryable);
     }
 
-    public abstract class RecursiveQuery<TBase, TPrevious, TCurrent> : BaseQuery<TBase, TCurrent> {
-        protected virtual IQuery<TBase, TPrevious> Child { get; }
+    public abstract class RecursiveQuery<TBase, TPreviousResult, TResult> : BaseQuery<TBase, TResult> {
+        protected virtual IQuery<TBase, TPreviousResult> Child { get; }
 
-        protected RecursiveQuery(IQuery<TBase, TPrevious> child)
+        protected RecursiveQuery(IQuery<TBase, TPreviousResult> child)
             => Child = child;
     }
 }
