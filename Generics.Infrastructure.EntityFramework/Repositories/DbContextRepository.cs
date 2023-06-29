@@ -99,7 +99,7 @@ namespace Generics.Infrastructure.EntityFramework.Repositories {
         public async Task<T?> Find<T>(uint id, CancellationToken cancellationToken = default) where T : class
             => await _dbContext.FindAsync<T>(id, cancellationToken);
 
-        /// <summary> Get the first <typeparamref name="T"/> in the <see cref="DbContextRepository"/>. </summary>
+        /// <summary> Get the first <typeparamref name="T"/> from the <see cref="DbContextRepository"/>. </summary>
         /// <typeparam name="T">The <see cref="Type"/> of item to look for.</typeparam>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task{TResult}"/> that represents getting the first <typeparamref name="T"/> in the <see cref="DbContextRepository"/>.</returns>
@@ -124,12 +124,12 @@ namespace Generics.Infrastructure.EntityFramework.Repositories {
         public async Task<T?> FirstOrDefault<T>(CancellationToken cancellationToken = default) where T : class
             => await _dbContext.Set<T>().FirstOrDefaultAsync(cancellationToken);
 
-        /// <summary> Get the first <typeparamref name="TResult"/> in the <see cref="DbContextRepository"/> that satisfies the <paramref name="specification"/>. </summary>
+        /// <summary> Get the first <typeparamref name="TResult"/> that satisfies the <paramref name="specification"/> in the <see cref="DbContextRepository"/>. </summary>
         /// <typeparam name="T">The <see cref="Type"/> the <paramref name="specification"/> operates on.</typeparam>
         /// <typeparam name="TResult">The <see cref="Type"/> of the result as determined by the <paramref name="specification"/>.</typeparam>
         /// <param name="specification">The <see cref="ISpecification{TBase, TResult}"/> that specifies which items to look for.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that may be used to cancel the asynchronous operation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> that represents getting the first <typeparamref name="TResult"/> in the <see cref="DbContextRepository"/> that satisfies the <paramref name="specification"/>, or <see langword="default"/>(<typeparamref name="TResult"/>) if there wasn't any.</returns>
+        /// <returns>A <see cref="Task{TResult}"/> that represents getting the first <typeparamref name="TResult"/> that satisfies the <paramref name="specification"/> in the <see cref="DbContextRepository"/>, or <see langword="default"/>(<typeparamref name="TResult"/>) if there wasn't any.</returns>
         public async Task<TResult?> FirstOrDefault<T, TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default) where T : class
             => await _dbContext.Set<T>().Apply(specification).FirstOrDefaultAsync(cancellationToken);
 
