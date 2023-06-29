@@ -16,7 +16,7 @@ namespace Generics.Specifications.Queries {
         }
 
         public IOrderedQuery<T> ThenBy<TNextProperty>(Expression<Func<T, TNextProperty>> selector, bool descending) where TNextProperty : IComparable<TNextProperty>
-            => new OrderByQuery<T, TNextProperty>(this, selector, descending);
+            => new OrderQuery<T, TNextProperty>(this, selector, descending);
 
         public override IOrderedQueryable<T> Apply(IQueryable<T> queryable)
             => Child.Apply(queryable).ThenBy(Selector, Descending);

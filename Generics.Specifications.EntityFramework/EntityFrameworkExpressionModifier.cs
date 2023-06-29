@@ -7,15 +7,15 @@ namespace Generics.Specifications.EntityFramework {
     public class EntityFrameworkExpressionModifier : ExpressionVisitor {
         public static readonly EntityFrameworkExpressionModifier Default = new();
 
-        static readonly MethodInfo s_includeMethodInfo
+        private static readonly MethodInfo s_includeMethodInfo
             = typeof(EntityFrameworkQueryableExtensions).GetTypeInfo().GetDeclaredMethods(nameof(EntityFrameworkQueryableExtensions.Include))
             .Single(mi => mi.GetGenericArguments().Length == 2 && mi.GetParameters().All(pi => pi.ParameterType != typeof(string)));
 
-        static readonly MethodInfo s_thenIncludeAfterEnumerableMethodInfo
+        private static readonly MethodInfo s_thenIncludeAfterEnumerableMethodInfo
             = typeof(EntityFrameworkQueryableExtensions).GetTypeInfo().GetDeclaredMethods(nameof(EntityFrameworkQueryableExtensions.ThenInclude))
             .Where(mi => mi.GetGenericArguments().Length == 3).Single(mi => { var typeInfo = mi.GetParameters().First().ParameterType.GenericTypeArguments[1]; return typeInfo.IsGenericType && typeInfo.GetGenericTypeDefinition() == typeof(IEnumerable<>); });
 
-        static readonly MethodInfo s_thenIncludeAfterReferenceMethodInfo
+        private static readonly MethodInfo s_thenIncludeAfterReferenceMethodInfo
             = typeof(EntityFrameworkQueryableExtensions).GetTypeInfo().GetDeclaredMethods(nameof(EntityFrameworkQueryableExtensions.ThenInclude))
             .Single(mi => mi.GetGenericArguments().Length == 3 && mi.GetParameters().First().ParameterType.GenericTypeArguments[1].IsGenericParameter);
 

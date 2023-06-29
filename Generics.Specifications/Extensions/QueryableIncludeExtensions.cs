@@ -43,8 +43,8 @@ namespace Generics.Specifications.Extensions {
             return new IncludableQueryable<T, TProperty>(source.Provider.CreateQuery<T>(expression));
         }
 
-        sealed class IncludableQueryable<T, TProperty> : IIncludableQueryable<T, TProperty>, IAsyncEnumerable<T> {
-            readonly IQueryable<T> _queryable;
+        private sealed class IncludableQueryable<T, TProperty> : IIncludableQueryable<T, TProperty>, IAsyncEnumerable<T> {
+            private readonly IQueryable<T> _queryable;
 
             public IncludableQueryable(IQueryable<T> queryable)
                 => _queryable = queryable;
