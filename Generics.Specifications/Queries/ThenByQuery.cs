@@ -15,9 +15,6 @@ namespace Generics.Specifications.Queries {
             Descending = descending;
         }
 
-        public IOrderedQuery<T> ThenBy<TNextProperty>(Expression<Func<T, TNextProperty>> selector, bool descending) where TNextProperty : IComparable<TNextProperty>
-            => new OrderQuery<T, TNextProperty>(this, selector, descending);
-
         public override IOrderedQueryable<T> Apply(IQueryable<T> queryable)
             => Child.Apply(queryable).ThenBy(Selector, Descending);
     }
@@ -33,9 +30,6 @@ namespace Generics.Specifications.Queries {
             Selector = selector;
             Descending = descending;
         }
-
-        public IOrderedQuery<TBase, T> ThenBy<TNextProperty>(Expression<Func<T, TNextProperty>> selector, bool descending) where TNextProperty : IComparable<TNextProperty>
-            => new OrderQuery<TBase, T, TNextProperty>(this, selector, descending);
 
         public override IOrderedQueryable<T> Apply(IQueryable<TBase> queryable)
             => Child.Apply(queryable).ThenBy(Selector, Descending);
