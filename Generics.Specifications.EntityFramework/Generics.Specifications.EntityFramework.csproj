@@ -9,7 +9,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
     <PackageId>Generics.Specifications.EntityFramework</PackageId>
-    <Version>0.0.1</Version>
+    <Version>0.1.0</Version>
     <Authors>Theo Harkes</Authors>
     <Description>Entity Framework hook for Generics.Specifications.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
