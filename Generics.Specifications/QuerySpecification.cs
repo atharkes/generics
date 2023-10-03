@@ -13,12 +13,6 @@ namespace Generics.Specifications {
 
         public QuerySpecification(IQuery<T> query)
             => Query = query;
-
-        public ISpecification<T> With(Func<IQuery<T>, IQuery<T>> queryFunction)
-            => new QuerySpecification<T>(queryFunction.Invoke(Query));
-
-        public ISpecification<T, TNewResult> With<TNewResult>(Func<IQuery<T, T>, IQuery<T, TNewResult>> queryFunction)
-            => new QuerySpecification<T, TNewResult>(queryFunction.Invoke(Query));
     }
 
     public class QuerySpecification<TBase, TResult> : IQuerySpecification<TBase, TResult> {
@@ -29,8 +23,5 @@ namespace Generics.Specifications {
 
         public QuerySpecification(Func<IQuery<TBase>, IQuery<TBase, TResult>> queryFunction)
             => Query = queryFunction.Invoke(new BaseQuery<TBase>());
-
-        public ISpecification<TBase, TNewResult> With<TNewResult>(Func<IQuery<TBase, TResult>, IQuery<TBase, TNewResult>> queryFunction)
-            => new QuerySpecification<TBase, TNewResult>(queryFunction.Invoke(Query));
     }
 }
