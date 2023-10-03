@@ -3,11 +3,11 @@ using Generics.Specifications.Interfaces;
 using System.Linq.Expressions;
 
 namespace Generics.Specifications.Queries {
-    public class OrderQuery<T, TProperty> : RecursiveQuery<T>, IOrderedQuery<T> {
+    public class OrderByQuery<T, TProperty> : RecursiveQuery<T>, IOrderedQuery<T> {
         public Expression<Func<T, TProperty>> Selector { get; }
         public bool Descending { get; }
 
-        public OrderQuery(IQuery<T> child, Expression<Func<T, TProperty>> selector, bool descending) : base(child) {
+        public OrderByQuery(IQuery<T> child, Expression<Func<T, TProperty>> selector, bool descending) : base(child) {
             Selector = selector;
             Descending = descending;
         }
