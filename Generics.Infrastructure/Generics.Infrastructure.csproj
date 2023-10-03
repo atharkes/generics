@@ -9,7 +9,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
     <PackageId>Generics.Infrastructure</PackageId>
-    <Version>0.0.2</Version>
+    <Version>0.1.0</Version>
     <Authors>Theo Harkes</Authors>
     <Description>Powerful generic repositories including Generics.Specifications.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>

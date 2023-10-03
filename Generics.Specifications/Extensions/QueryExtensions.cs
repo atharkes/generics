@@ -50,7 +50,7 @@ namespace Generics.Specifications.Extensions {
             this IQuery<T> query,
             Expression<Func<T, TProperty>> selector,
             bool descending
-        ) => new OrderQuery<T, TProperty>(query, selector, descending);
+        ) => new OrderByQuery<T, TProperty>(query, selector, descending);
 
         public static IOrderedQuery<TBase, T> OrderBy<TBase, T, TProperty>(
             this IQuery<TBase, T> query,
