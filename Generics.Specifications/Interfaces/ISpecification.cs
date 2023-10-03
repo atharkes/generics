@@ -1,19 +1,15 @@
 ﻿namespace Generics.Specifications.Interfaces {
-    public interface ISpecification<T> : ISpecification<T, T> {
-        new IQuery<T> Query { get; }
+    /// <summary> A <see cref="ISpecification{T}"/> to specify what you want to retrieve from a repository. </summary>
+    /// <typeparam name="T">The <see cref="Type"/> the <see cref="ISpecification{T}"/> operates on.</typeparam>
+    public interface ISpecification<T> : ISpecification<T, T> { }
 
-        ISpecification<T> With(Func<IQuery<T>, IQuery<T>> queryFunction);
-
-        IQuery<T, T> ISpecification<T, T>.Query
-            => Query;
-    }
-
-    public interface ISpecification<TBase, TResult> {
-        IQuery<TBase, TResult> Query { get; }
-
-        IQueryable<TResult> Apply(IQueryable<TBase> queryable)
-            => Query.Apply(queryable);
-
-        ISpecification<TBase, TNewResult> With<TNewResult>(Func<IQuery<TBase, TResult>, IQuery<TBase, TNewResult>> queryFunction);
+    /// <summary> A <see cref="ISpecification{TBase, TResult}"/> to specify what you want to retrieve from a repository. </summary>
+    /// <typeparam name="TBase">The <see cref="Type"/> the <see cref="ISpecification{TBase, TResult}"/> operates on.</typeparam>
+    /// <typeparam name="TResult">The <see cref="Type"/> that should be returned as result.</typeparam>
+    public interface ISpecification<in TBase, out TResult> {
+        /// <summary> Apply the <see cref="ISpecification{TBase, TResult}"/> to a <paramref name="queryable"/>. </summary>
+        /// <param name="queryable">The <see cref="IQueryable{T}"/> to apply the <see cref="ISpecification{TBase, TResult}"/> to.</param>
+        /// <returns>The <see cref="IQueryable{T}"/> after applying the <see cref="ISpecification{TBase, TResult}"/>.</returns>
+        IQueryable<TResult> Apply(IQueryable<TBase> queryable);
     }
 }

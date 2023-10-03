@@ -9,7 +9,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
     <PackageId>Generics.Specifications</PackageId>
-    <Version>0.0.1</Version>
+    <Version>0.1.0</Version>
     <Authors>Theo Harkes</Authors>
     <Description>A powerful and immutable specification pattern for generic repositories.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>

@@ -1,51 +1,15 @@
-﻿using System.Linq.Expressions;
+﻿namespace Generics.Specifications.Interfaces {
+    /// <summary> An <see cref="IQuery{T}"/> that stores a query. </summary>
+    /// <typeparam name="T">The <see cref="Type"/> the <see cref="IQuery{T}"/> operates on.</typeparam>
+    public interface IQuery<T> : IQuery<T, T> { }
 
-namespace Generics.Specifications.Interfaces {
-    public interface IQuery<T> : IQuery<T, T> {
-        new IQuery<T> Where(Expression<Func<T, bool>> criteria);
-
-        new IOrderedQuery<T> OrderBy<TProperty>(Expression<Func<T, TProperty>> selector, bool descending) where TProperty : IComparable<TProperty>;
-        new IOrderedQuery<T> OrderBy<TProperty>(Expression<Func<T, TProperty>> selector) where TProperty : IComparable<TProperty>
-            => OrderBy(selector, false);
-        new IOrderedQuery<T> OrderByDescending<TProperty>(Expression<Func<T, TProperty>> selector) where TProperty : IComparable<TProperty>
-            => OrderBy(selector, true);
-
-        new IIncludedQuery<T, TProperty> Include<TProperty>(Expression<Func<T, TProperty>> selector);
-
-        new IQuery<T> Skip(uint amount);
-        new IQuery<T> Take(uint amount);
-
-        #region Default Implementation Redirects
-        IQuery<T, T> IQuery<T, T>.Where(Expression<Func<T, bool>> criteria)
-            => Where(criteria);
-        IOrderedQuery<T, T> IQuery<T, T>.OrderBy<TProperty>(Expression<Func<T, TProperty>> selector, bool descending)
-            => OrderBy(selector, descending);
-        IQuery<T, T> IQuery<T, T>.Skip(uint amount)
-            => Skip(amount);
-        IQuery<T, T> IQuery<T, T>.Take(uint amount)
-            => Take(amount);
-        IIncludedQuery<T, T, TProperty> IQuery<T, T>.Include<TProperty>(Expression<Func<T, TProperty>> selector)
-            => Include(selector);
-        #endregion
-    }
-
-    public interface IQuery<TBase, T> {
-        IQuery<TBase, T> Where(Expression<Func<T, bool>> criteria);
-
-        IOrderedQuery<TBase, T> OrderBy<TProperty>(Expression<Func<T, TProperty>> selector, bool descending) where TProperty : IComparable<TProperty>;
-        IOrderedQuery<TBase, T> OrderBy<TProperty>(Expression<Func<T, TProperty>> selector) where TProperty : IComparable<TProperty>
-            => OrderBy(selector, false);
-        IOrderedQuery<TBase, T> OrderByDescending<TProperty>(Expression<Func<T, TProperty>> selector) where TProperty : IComparable<TProperty>
-            => OrderBy(selector, true);
-
-        IQuery<TBase, TProperty> Select<TProperty>(Expression<Func<T, TProperty>> selector);
-        IQuery<TBase, TProperty> SelectMany<TProperty>(Expression<Func<T, IEnumerable<TProperty>>> selector);
-
-        IIncludedQuery<TBase, T, TProperty> Include<TProperty>(Expression<Func<T, TProperty>> selector);
-
-        IQuery<TBase, T> Skip(uint amount);
-        IQuery<TBase, T> Take(uint amount);
-
-        IQueryable<T> Apply(IQueryable<TBase> queryable);
+    /// <summary> An <see cref="IQuery{TBase, TResult}"/> that stores a query. </summary>
+    /// <typeparam name="TBase">The <see cref="Type"/> the <see cref="IQuery{T}"/> operates on.</typeparam>
+    /// <typeparam name="TResult">The <see cref="Type"/> that should be returned as result.</typeparam>
+    public interface IQuery<in TBase, out TResult> {
+        /// <summary> Apply the <see cref="IQuery{TBase, TResult}"/> to a <paramref name="queryable"/>. </summary>
+        /// <param name="queryable">The <see cref="IQueryable{T}"/> to apply the <see cref="IQuery{TBase, TResult}"/> to.</param>
+        /// <returns>The <see cref="IQueryable{T}"/> after applying the <see cref="IQuery{TBase, TResult}"/>.</returns>
+        IQueryable<TResult> Apply(IQueryable<TBase> queryable);
     }
 }

@@ -11,13 +11,13 @@ namespace Generics.Specifications.Queries {
             => base.Apply(queryable).Skip((int)Amount);
     }
 
-    public class SkipQuery<TBase, T> : RecursiveQuery<TBase, T> {
+    public class SkipQuery<TBase, TResult> : RecursiveQuery<TBase, TResult> {
         public uint Amount { get; }
 
-        public SkipQuery(IQuery<TBase, T> child, uint amount) : base(child)
+        public SkipQuery(IQuery<TBase, TResult> child, uint amount) : base(child)
             => Amount = amount;
 
-        public override IQueryable<T> Apply(IQueryable<TBase> queryable)
+        public override IQueryable<TResult> Apply(IQueryable<TBase> queryable)
             => base.Apply(queryable).Skip((int)Amount);
     }
 }

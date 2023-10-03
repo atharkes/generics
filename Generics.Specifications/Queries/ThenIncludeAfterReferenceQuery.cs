@@ -17,17 +17,17 @@ namespace Generics.Specifications.Queries {
             => Child.Apply(queryable).ThenInclude(Selector);
     }
 
-    public class ThenIncludeAfterReferenceQuery<TBase, T, TPreviousProperty, TProperty> : RecursiveQuery<TBase, T>, IIncludedQuery<TBase, T, TProperty> {
+    public class ThenIncludeAfterReferenceQuery<TBase, TResult, TPreviousProperty, TProperty> : RecursiveQuery<TBase, TResult>, IIncludedQuery<TBase, TResult, TProperty> {
         public Expression<Func<TPreviousProperty, TProperty>> Selector { get; }
 
-        protected override IIncludedQuery<TBase, T, TPreviousProperty> Child { get; }
+        protected override IIncludedQuery<TBase, TResult, TPreviousProperty> Child { get; }
 
-        public ThenIncludeAfterReferenceQuery(IIncludedQuery<TBase, T, TPreviousProperty> child, Expression<Func<TPreviousProperty, TProperty>> selector) : base(child) {
+        public ThenIncludeAfterReferenceQuery(IIncludedQuery<TBase, TResult, TPreviousProperty> child, Expression<Func<TPreviousProperty, TProperty>> selector) : base(child) {
             Child = child;
             Selector = selector;
         }
 
-        public override IIncludableQueryable<T, TProperty> Apply(IQueryable<TBase> queryable)
+        public override IIncludableQueryable<TResult, TProperty> Apply(IQueryable<TBase> queryable)
             => Child.Apply(queryable).ThenInclude(Selector);
     }
 }
