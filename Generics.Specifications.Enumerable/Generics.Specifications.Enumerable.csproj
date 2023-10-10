@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<EnablePackageValidation>true</EnablePackageValidation>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+		<PackageId>Generics.Specifications.Enumerable</PackageId>
+		<Version>0.1.0</Version>
+		<Authors>Theo Harkes</Authors>
+		<Description>Enumerable hook for Generics.Specifications.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageIconUrl>https://cdn-icons-png.flaticon.com/128/4296/4296577.png</PackageIconUrl>
+		<PackageProjectUrl>https://github.com/atharkes/generics</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/atharkes/generics</RepositoryUrl>
+		<PackageTags>spec, specification, immutable, repository, ddd, enumerable</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Update="icon.png" Pack="true" Visible="false" PackagePath="\" />
+		<None Update="README.md" Pack="true" Visible="false" PackagePath="\" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="QueryInterceptor.Core" Version="1.0.8" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Generics.Specifications\Generics.Specifications.csproj" />
+	</ItemGroup>
+
+</Project>
