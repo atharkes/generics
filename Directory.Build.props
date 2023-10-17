@@ -11,8 +11,6 @@
 
     <Version>0.1.1</Version>
     <Authors>Theo Harkes</Authors>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageIcon>icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/atharkes/generics</PackageProjectUrl>
     <RepositoryUrl>https://github.com/atharkes/generics</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

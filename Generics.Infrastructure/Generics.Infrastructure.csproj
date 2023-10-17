@@ -5,11 +5,13 @@
     <Description>Powerful generic repositories including Generics.Specifications.</Description>
     <PackageIconUrl>https://cdn-icons-png.flaticon.com/128/2232/2232189.png</PackageIconUrl>
     <PackageTags>repository, spec, specification, ddd, ef, efcore, entity, framework</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="icon.png" Pack="true" Visible="false" PackagePath="\" />
     <None Update="README.md" Pack="true" Visible="false" PackagePath="\" />
+    <None Update="icon.png" Pack="true" Visible="false" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
