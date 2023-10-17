@@ -5,7 +5,6 @@ using System.Reflection;
 namespace Generics.Specifications.Extensions {
     public interface IIncludableQueryable<out T, out TProperty> : IQueryable<T> { }
 
-
     public interface IIncludableEnumerable<out T, out TProperty> : IEnumerable<T> { }
 
     public static class QueryableIncludeExtensions {
@@ -36,10 +35,10 @@ namespace Generics.Specifications.Extensions {
             return new IncludableQueryable<T, TProperty>(source.Provider.CreateQuery<T>(expression));
         }
 
-        public static IIncludableEnumerable<T, TProperty> Include<T, TProperty>(this IEnumerable<T> source, Func<T, TProperty> navigationExpression) {
-            _ = source.Select(navigationExpression.Invoke);
-            return new IncludableEnumerable<T, TProperty>(source);
-        }
+        //public static IIncludableEnumerable<T, TProperty> Include<T, TProperty>(this IEnumerable<T> source, Func<T, TProperty> navigationExpression) {
+        //    _ = source.Select(navigationExpression.Invoke);
+        //    return new IncludableEnumerable<T, TProperty>(source);
+        //}
 
         public static IIncludableQueryable<T, TProperty> ThenInclude<T, TPreviousProperty, TProperty>(this IIncludableQueryable<T, IEnumerable<TPreviousProperty>> source, Expression<Func<TPreviousProperty, TProperty>> navigationExpression) {
             var expression = Expression.Call(null, ThenIncludeAfterEnumerableMethodInfo.MakeGenericMethod(typeof(T), typeof(TPreviousProperty), typeof(TProperty)), new[] { source.Expression, Expression.Quote(navigationExpression) });
