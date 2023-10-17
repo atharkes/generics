@@ -14,40 +14,50 @@ namespace Generics.Specifications.Extensions {
 
         public static bool IsIncludeMethod(MethodInfo methodInfo)
             => methodInfo.DeclaringType == typeof(QueryableIncludeExtensions)
-            && methodInfo.Name == nameof(Include);
+            && methodInfo.Name == nameof(Include)
+            && methodInfo.GetParameters()[0].ParameterType.Name == typeof(IQueryable<>).Name;
 
-        public static bool IsThenIncludeAfterEnumerableMethod(MethodInfo methodInfo) {
-            if (methodInfo.DeclaringType != typeof(QueryableIncludeExtensions) || methodInfo.Name != nameof(ThenInclude)) {
-                return false;
-            }
-
-            var typeInfo = methodInfo.GetParameters()[0].ParameterType.GenericTypeArguments[1];
-            return typeInfo.IsGenericType && typeInfo.GetGenericTypeDefinition() == typeof(IEnumerable<>);
-        }
+        public static bool IsThenIncludeAfterEnumerableMethod(MethodInfo methodInfo)
+            => methodInfo.DeclaringType == typeof(QueryableIncludeExtensions)
+            && methodInfo.Name == nameof(ThenInclude)
+            && methodInfo.GetParameters()[0].ParameterType.GenericTypeArguments[1].IsGenericType
+            && methodInfo.GetParameters()[0].ParameterType.GenericTypeArguments[1].GetGenericTypeDefinition() == typeof(IEnumerable<>)
+            && methodInfo.GetParameters()[0].ParameterType.Name == typeof(IQueryable<>).Name;
 
         public static bool IsThenIncludeAfterReferenceMethod(MethodInfo methodInfo)
             => methodInfo.DeclaringType == typeof(QueryableIncludeExtensions)
             && methodInfo.Name == nameof(ThenInclude)
-            && !IsThenIncludeAfterEnumerableMethod(methodInfo);
+            && methodInfo.GetParameters()[0].ParameterType.GenericTypeArguments[1].IsGenericType
+            && methodInfo.GetParameters()[0].ParameterType.GenericTypeArguments[1].GetGenericTypeDefinition() != typeof(IEnumerable<>)
+            && methodInfo.GetParameters()[0].ParameterType.Name == typeof(IQueryable<>).Name;
 
         public static IIncludableQueryable<T, TProperty> Include<T, TProperty>(this IQueryable<T> source, Expression<Func<T, TProperty>> navigationExpression) {
             var expression = Expression.Call(null, IncludeMethodInfo.MakeGenericMethod(typeof(T), typeof(TProperty)), new[] { source.Expression, Expression.Quote(navigationExpression) });
             return new IncludableQueryable<T, TProperty>(source.Provider.CreateQuery<T>(expression));
         }
 
-        //public static IIncludableEnumerable<T, TProperty> Include<T, TProperty>(this IEnumerable<T> source, Func<T, TProperty> navigationExpression) {
-        //    _ = source.Select(navigationExpression.Invoke);
-        //    return new IncludableEnumerable<T, TProperty>(source);
-        //}
+        public static IIncludableEnumerable<T, TProperty> Include<T, TProperty>(this IEnumerable<T> source, Func<T, TProperty> navigationFunction) {
+            _ = source.Select(navigationFunction);
+
+            return new IncludableEnumerable<T, TProperty>(source);
+        }
 
         public static IIncludableQueryable<T, TProperty> ThenInclude<T, TPreviousProperty, TProperty>(this IIncludableQueryable<T, IEnumerable<TPreviousProperty>> source, Expression<Func<TPreviousProperty, TProperty>> navigationExpression) {
             var expression = Expression.Call(null, ThenIncludeAfterEnumerableMethodInfo.MakeGenericMethod(typeof(T), typeof(TPreviousProperty), typeof(TProperty)), new[] { source.Expression, Expression.Quote(navigationExpression) });
             return new IncludableQueryable<T, TProperty>(source.Provider.CreateQuery<T>(expression));
         }
 
+        public static IIncludableEnumerable<T, TProperty> ThenInclude<T, TPreviousProperty, TProperty>(this IIncludableEnumerable<T, IEnumerable<TPreviousProperty>> source, Func<TPreviousProperty, TProperty> navigationFunction) {
+            return new IncludableEnumerable<T, TProperty>(source);
+        }
+
         public static IIncludableQueryable<T, TProperty> ThenInclude<T, TPreviousProperty, TProperty>(this IIncludableQueryable<T, TPreviousProperty> source, Expression<Func<TPreviousProperty, TProperty>> navigationExpression) {
             var expression = Expression.Call(null, ThenIncludeAfterReferenceMethodInfo.MakeGenericMethod(typeof(T), typeof(TPreviousProperty), typeof(TProperty)), new[] { source.Expression, Expression.Quote(navigationExpression) });
             return new IncludableQueryable<T, TProperty>(source.Provider.CreateQuery<T>(expression));
+        }
+
+        public static IIncludableEnumerable<T, TProperty> ThenInclude<T, TPreviousProperty, TProperty>(this IIncludableEnumerable<T, TPreviousProperty> source, Func<TPreviousProperty, TProperty> navigationFunction) {
+            return new IncludableEnumerable<T, TProperty>(source);
         }
 
         private sealed class IncludableQueryable<T, TProperty> : IIncludableQueryable<T, TProperty>, IAsyncEnumerable<T> {

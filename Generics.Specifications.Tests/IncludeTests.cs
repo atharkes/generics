@@ -7,15 +7,35 @@ namespace Generics.Specifications.Tests {
     public class IncludeTests {
         public sealed class ClassA {
             public IEnumerable<ClassB> SubItems { get; set; }
+            public ClassB Item { get; set; }
         }
 
         public sealed class ClassB {
-            public int Value { get; set; } = Random.Shared.Next();
+            public IEnumerable<ClassC> SubItems { get; set; }
+            public int Value { get; set; }
+        }
+
+        public sealed class ClassC {
+            public uint value { get; set; }
         }
 
         [Theory, InlineAutoData]
         public void IncludeDoesntThrow(IEnumerable<ClassA> items) {
             var specification = new QuerySpecification<ClassA>(q => q.Include(a => a.SubItems));
+
+            var result = items.Apply(specification);
+        }
+
+        [Theory, InlineAutoData]
+        public void ThenIncludeAfterReferenceDoesntThrow(IEnumerable<ClassA> items) {
+            var specification = new QuerySpecification<ClassA>(q => q.Include(a => a.Item).ThenInclude(b => b.SubItems));
+
+            var result = items.Apply(specification);
+        }
+
+        [Theory, InlineAutoData]
+        public void ThenIncludeAfterEnumerableDoesntThrow(IEnumerable<ClassA> items) {
+            var specification = new QuerySpecification<ClassA>(q => q.Include(a => a.SubItems).ThenInclude(b => b.SubItems));
 
             var result = items.Apply(specification);
         }
