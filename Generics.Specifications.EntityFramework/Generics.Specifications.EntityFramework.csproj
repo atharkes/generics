@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <PackageId>Generics.Specifications.EntityFramework</PackageId>
-    <Version>0.1.0</Version>
     <Description>Entity Framework hook for Generics.Specifications.</Description>
     <PackageIconUrl>https://cdn-icons-png.flaticon.com/128/4296/4296577.png</PackageIconUrl>
     <PackageTags>spec, specification, immutable, repository, ddd, ef, efcore, entity, framework</PackageTags>
