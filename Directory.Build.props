@@ -1,0 +1,22 @@
+<Project>
+  <Sdk Name="DotNet.ReproducibleBuilds.Isolated" Version="1.1.1" />
+
+  <PropertyGroup>
+    <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <Version>0.1.1</Version>
+    <Authors>Theo Harkes</Authors>
+    <PackageProjectUrl>https://github.com/atharkes/generics</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/atharkes/generics</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1" PrivateAssets="All"/>
+  </ItemGroup>
+</Project>
