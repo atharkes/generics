@@ -3,15 +3,15 @@
   <PropertyGroup>
     <PackageId>Generics.Specifications</PackageId>
     <Description>A powerful and immutable specification pattern for generic repositories.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl>https://cdn-icons-png.flaticon.com/128/4296/4296577.png</PackageIconUrl>
     <PackageTags>spec, specification, immutable, repository, ddd</PackageTags>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageIcon>icon.png</PackageIcon>    
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="README.md" Pack="true" Visible="false" PackagePath="\" />
-    <None Update="icon.png" Pack="true" Visible="false" PackagePath="\" />
+    <None Include="README.md" Pack="true" Visible="false" PackagePath="\" />
+    <None Include="icon.png" Pack="true" Visible="false" PackagePath="\" />
   </ItemGroup>
 
 </Project>
