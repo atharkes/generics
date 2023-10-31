@@ -24,6 +24,8 @@ namespace Generics.Specifications.Tests {
             var specification = new QuerySpecification<ClassA>(q => q.Include(a => a.SubItems));
 
             var result = items.Apply(specification);
+
+            result.Should().BeEquivalentTo(items);
         }
 
         [Theory, InlineAutoData]
@@ -31,6 +33,8 @@ namespace Generics.Specifications.Tests {
             var specification = new QuerySpecification<ClassA>(q => q.Include(a => a.Item).ThenInclude(b => b.SubItems));
 
             var result = items.Apply(specification);
+
+            result.Should().BeEquivalentTo(items);
         }
 
         [Theory, InlineAutoData]
@@ -38,6 +42,8 @@ namespace Generics.Specifications.Tests {
             var specification = new QuerySpecification<ClassA>(q => q.Include(a => a.SubItems).ThenInclude(b => b.SubItems));
 
             var result = items.Apply(specification);
+
+            result.Should().BeEquivalentTo(items);
         }
 
 
@@ -50,7 +56,6 @@ namespace Generics.Specifications.Tests {
             foreach (var item in result) {
                 item.SubItems.Should().BeInAscendingOrder(b => b.Value);
             }
-
         }
     }
 }
