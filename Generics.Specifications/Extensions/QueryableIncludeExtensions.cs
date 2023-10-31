@@ -15,21 +15,20 @@ namespace Generics.Specifications.Extensions {
         public static bool IsIncludeMethod(MethodInfo methodInfo)
             => methodInfo.DeclaringType == typeof(QueryableIncludeExtensions)
             && methodInfo.Name == nameof(Include)
-            && methodInfo.GetParameters()[0].ParameterType.Name == typeof(IQueryable<>).Name;
+            && methodInfo.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == typeof(IQueryable<>);
 
         public static bool IsThenIncludeAfterEnumerableMethod(MethodInfo methodInfo)
             => methodInfo.DeclaringType == typeof(QueryableIncludeExtensions)
             && methodInfo.Name == nameof(ThenInclude)
+            && methodInfo.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == typeof(IIncludableQueryable<,>)
             && methodInfo.GetParameters()[0].ParameterType.GenericTypeArguments[1].IsGenericType
-            && methodInfo.GetParameters()[0].ParameterType.GenericTypeArguments[1].GetGenericTypeDefinition() == typeof(IEnumerable<>)
-            && methodInfo.GetParameters()[0].ParameterType.Name == typeof(IQueryable<>).Name;
+            && methodInfo.GetParameters()[0].ParameterType.GenericTypeArguments[1].GetGenericTypeDefinition() == typeof(IEnumerable<>);
 
         public static bool IsThenIncludeAfterReferenceMethod(MethodInfo methodInfo)
             => methodInfo.DeclaringType == typeof(QueryableIncludeExtensions)
             && methodInfo.Name == nameof(ThenInclude)
-            && methodInfo.GetParameters()[0].ParameterType.GenericTypeArguments[1].IsGenericType
-            && methodInfo.GetParameters()[0].ParameterType.GenericTypeArguments[1].GetGenericTypeDefinition() != typeof(IEnumerable<>)
-            && methodInfo.GetParameters()[0].ParameterType.Name == typeof(IQueryable<>).Name;
+            && methodInfo.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == typeof(IIncludableQueryable<,>)
+            && !IsThenIncludeAfterEnumerableMethod(methodInfo);
 
         public static IIncludableQueryable<T, TProperty> Include<T, TProperty>(this IQueryable<T> source, Expression<Func<T, TProperty>> navigationExpression) {
             var expression = Expression.Call(null, IncludeMethodInfo.MakeGenericMethod(typeof(T), typeof(TProperty)), new[] { source.Expression, Expression.Quote(navigationExpression) });
