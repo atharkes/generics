@@ -27,11 +27,11 @@ namespace Generics.Specifications.EntityFramework {
 
             var method = node.Method;
             var genericArguments = method.GetGenericArguments();
-            return QueryableIncludeExtensions.IsIncludeMethod(method)
+            return IncludeExtensions.IsIncludeMethod(method)
                 ? Expression.Call(null, s_includeMethodInfo.MakeGenericMethod(genericArguments), arguments)
-                : QueryableIncludeExtensions.IsThenIncludeAfterEnumerableMethod(method)
+                : IncludeExtensions.IsThenIncludeAfterEnumerableMethod(method)
                     ? Expression.Call(null, s_thenIncludeAfterEnumerableMethodInfo.MakeGenericMethod(genericArguments), arguments)
-                    : QueryableIncludeExtensions.IsThenIncludeAfterReferenceMethod(method)
+                    : IncludeExtensions.IsThenIncludeAfterReferenceMethod(method)
                         ? Expression.Call(null, s_thenIncludeAfterReferenceMethodInfo.MakeGenericMethod(genericArguments), arguments)
                         : base.VisitMethodCall(node);
         }

@@ -7,25 +7,25 @@ namespace Generics.Specifications.Extensions {
 
     public interface IIncludableEnumerable<out T, out TProperty> : IEnumerable<T> { }
 
-    public static class QueryableIncludeExtensions {
-        internal static readonly MethodInfo IncludeMethodInfo = typeof(QueryableIncludeExtensions).GetTypeInfo().GetDeclaredMethods(nameof(Include)).Single(IsIncludeMethod);
-        internal static readonly MethodInfo ThenIncludeAfterEnumerableMethodInfo = typeof(QueryableIncludeExtensions).GetTypeInfo().GetDeclaredMethods(nameof(ThenInclude)).Single(IsThenIncludeAfterEnumerableMethod);
-        internal static readonly MethodInfo ThenIncludeAfterReferenceMethodInfo = typeof(QueryableIncludeExtensions).GetTypeInfo().GetDeclaredMethods(nameof(ThenInclude)).Single(IsThenIncludeAfterReferenceMethod);
+    public static class IncludeExtensions {
+        internal static readonly MethodInfo IncludeMethodInfo = typeof(IncludeExtensions).GetTypeInfo().GetDeclaredMethods(nameof(Include)).Single(IsIncludeMethod);
+        internal static readonly MethodInfo ThenIncludeAfterEnumerableMethodInfo = typeof(IncludeExtensions).GetTypeInfo().GetDeclaredMethods(nameof(ThenInclude)).Single(IsThenIncludeAfterEnumerableMethod);
+        internal static readonly MethodInfo ThenIncludeAfterReferenceMethodInfo = typeof(IncludeExtensions).GetTypeInfo().GetDeclaredMethods(nameof(ThenInclude)).Single(IsThenIncludeAfterReferenceMethod);
 
         public static bool IsIncludeMethod(MethodInfo methodInfo)
-            => methodInfo.DeclaringType == typeof(QueryableIncludeExtensions)
+            => methodInfo.DeclaringType == typeof(IncludeExtensions)
             && methodInfo.Name == nameof(Include)
             && methodInfo.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == typeof(IQueryable<>);
 
         public static bool IsThenIncludeAfterEnumerableMethod(MethodInfo methodInfo)
-            => methodInfo.DeclaringType == typeof(QueryableIncludeExtensions)
+            => methodInfo.DeclaringType == typeof(IncludeExtensions)
             && methodInfo.Name == nameof(ThenInclude)
             && methodInfo.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == typeof(IIncludableQueryable<,>)
             && methodInfo.GetParameters()[0].ParameterType.GenericTypeArguments[1].IsGenericType
             && methodInfo.GetParameters()[0].ParameterType.GenericTypeArguments[1].GetGenericTypeDefinition() == typeof(IEnumerable<>);
 
         public static bool IsThenIncludeAfterReferenceMethod(MethodInfo methodInfo)
-            => methodInfo.DeclaringType == typeof(QueryableIncludeExtensions)
+            => methodInfo.DeclaringType == typeof(IncludeExtensions)
             && methodInfo.Name == nameof(ThenInclude)
             && methodInfo.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == typeof(IIncludableQueryable<,>)
             && !IsThenIncludeAfterEnumerableMethod(methodInfo);
