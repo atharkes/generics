@@ -35,28 +35,14 @@ namespace Generics.Specifications.Extensions {
             return new IncludableQueryable<T, TProperty>(source.Provider.CreateQuery<T>(expression));
         }
 
-        public static IIncludableEnumerable<T, TProperty> Include<T, TProperty>(this IEnumerable<T> source, Func<T, TProperty> navigationFunction) {
-            _ = source.Select(navigationFunction);
-
-            return new IncludableEnumerable<T, TProperty>(source);
-        }
-
         public static IIncludableQueryable<T, TProperty> ThenInclude<T, TPreviousProperty, TProperty>(this IIncludableQueryable<T, IEnumerable<TPreviousProperty>> source, Expression<Func<TPreviousProperty, TProperty>> navigationExpression) {
             var expression = Expression.Call(null, ThenIncludeAfterEnumerableMethodInfo.MakeGenericMethod(typeof(T), typeof(TPreviousProperty), typeof(TProperty)), new[] { source.Expression, Expression.Quote(navigationExpression) });
             return new IncludableQueryable<T, TProperty>(source.Provider.CreateQuery<T>(expression));
         }
 
-        public static IIncludableEnumerable<T, TProperty> ThenInclude<T, TPreviousProperty, TProperty>(this IIncludableEnumerable<T, IEnumerable<TPreviousProperty>> source, Func<TPreviousProperty, TProperty> navigationFunction) {
-            return new IncludableEnumerable<T, TProperty>(source);
-        }
-
         public static IIncludableQueryable<T, TProperty> ThenInclude<T, TPreviousProperty, TProperty>(this IIncludableQueryable<T, TPreviousProperty> source, Expression<Func<TPreviousProperty, TProperty>> navigationExpression) {
             var expression = Expression.Call(null, ThenIncludeAfterReferenceMethodInfo.MakeGenericMethod(typeof(T), typeof(TPreviousProperty), typeof(TProperty)), new[] { source.Expression, Expression.Quote(navigationExpression) });
             return new IncludableQueryable<T, TProperty>(source.Provider.CreateQuery<T>(expression));
-        }
-
-        public static IIncludableEnumerable<T, TProperty> ThenInclude<T, TPreviousProperty, TProperty>(this IIncludableEnumerable<T, TPreviousProperty> source, Func<TPreviousProperty, TProperty> navigationFunction) {
-            return new IncludableEnumerable<T, TProperty>(source);
         }
 
         private sealed class IncludableQueryable<T, TProperty> : IIncludableQueryable<T, TProperty>, IAsyncEnumerable<T> {
@@ -72,6 +58,15 @@ namespace Generics.Specifications.Extensions {
             public IEnumerator<T> GetEnumerator() => _queryable.GetEnumerator();
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
+
+        public static IIncludableEnumerable<T, TProperty> Include<T, TProperty>(this IEnumerable<T> source, Func<T, TProperty> navigationFunction)
+            => new IncludableEnumerable<T, TProperty>(source);
+
+        public static IIncludableEnumerable<T, TProperty> ThenInclude<T, TPreviousProperty, TProperty>(this IIncludableEnumerable<T, IEnumerable<TPreviousProperty>> source, Func<TPreviousProperty, TProperty> navigationFunction)
+            => new IncludableEnumerable<T, TProperty>(source);
+
+        public static IIncludableEnumerable<T, TProperty> ThenInclude<T, TPreviousProperty, TProperty>(this IIncludableEnumerable<T, TPreviousProperty> source, Func<TPreviousProperty, TProperty> navigationFunction)
+            => new IncludableEnumerable<T, TProperty>(source);
 
         private sealed class IncludableEnumerable<T, TProperty> : IIncludableEnumerable<T, TProperty> {
             private readonly IEnumerable<T> _enumerable;
