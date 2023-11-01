@@ -6,9 +6,9 @@ namespace Generics.Specifications.Enumerable {
         public static readonly EnumerableExpressionModifier Default = new();
 
         protected override Expression VisitMethodCall(MethodCallExpression node)
-            => QueryableIncludeExtensions.IsIncludeMethod(node.Method)
-            || QueryableIncludeExtensions.IsThenIncludeAfterEnumerableMethod(node.Method)
-            || QueryableIncludeExtensions.IsThenIncludeAfterReferenceMethod(node.Method)
+            => IncludeExtensions.IsIncludeMethod(node.Method)
+            || IncludeExtensions.IsThenIncludeAfterEnumerableMethod(node.Method)
+            || IncludeExtensions.IsThenIncludeAfterReferenceMethod(node.Method)
             ? Visit(node.Arguments[0])
             : base.VisitMethodCall(node);
     }
