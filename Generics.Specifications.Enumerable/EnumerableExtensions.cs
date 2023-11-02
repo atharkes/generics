@@ -1,13 +1,13 @@
 ﻿using Generics.Specifications.Interfaces;
-using System.Collections;
+using QueryInterceptor.Core;
 
 namespace Generics.Specifications.Enumerable {
     public static class EnumerableExtensions {
         public static IEnumerable<T> Apply<T>(this IEnumerable<T> enumerable, ISpecification<T> specification)
-            => specification.Apply(enumerable.AsQueryable());
+            => specification.Apply(enumerable.AsQueryable()).InterceptWith(EnumerableExpressionModifier.Default);
 
         public static IEnumerable<TResult> Apply<T, TResult>(this IEnumerable<T> enumerable, ISpecification<T, TResult> specification)
-            => specification.Apply(enumerable.AsQueryable());
+            => specification.Apply(enumerable.AsQueryable()).InterceptWith(EnumerableExpressionModifier.Default);
 
         /// <summary>
         /// References for further development:
@@ -39,10 +39,5 @@ namespace Generics.Specifications.Enumerable {
 
             return newItem;
         });
-
-        private class ModifyEnumerableIterator<T> : IEnumerable<T> {
-            public IEnumerator<T> GetEnumerator() => throw new NotImplementedException();
-            IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
-        }
     }
 }
