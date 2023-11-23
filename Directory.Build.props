@@ -9,7 +9,7 @@
     <EnablePackageValidation>true</EnablePackageValidation>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <Authors>Theo Harkes</Authors>
     <PackageProjectUrl>https://github.com/atharkes/generics</PackageProjectUrl>
     <RepositoryUrl>https://github.com/atharkes/generics</RepositoryUrl>
