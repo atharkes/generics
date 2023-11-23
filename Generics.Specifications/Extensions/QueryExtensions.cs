@@ -137,6 +137,30 @@ namespace Generics.Specifications.Extensions {
         ) => new SelectManyQuery<TBase, T, TProperty>(query, selector);
         #endregion
 
+        #region GroupBy
+        public static IQuery<T, IGrouping<TKey, T>> GroupBy<T, TKey>(
+            this IQuery<T> query,
+            Expression<Func<T, TKey>> keySelector
+        ) => new GroupByQuery<T, T, TKey>(query, keySelector);
+
+        public static IQuery<TBase, IGrouping<TKey, T>> GroupBy<TBase, T, TKey>(
+            this IQuery<TBase, T> query,
+            Expression<Func<T, TKey>> keySelector
+        ) => new GroupByQuery<TBase, T, TKey>(query, keySelector);
+
+        public static IQuery<T, IGrouping<TKey, TResult>> GroupBy<T, TKey, TResult>(
+            this IQuery<T> query,
+            Expression<Func<T, TKey>> keySelector,
+            Expression<Func<T, TResult>> resultSelector
+        ) => new GroupByQuery<T, T, TKey, TResult>(query, keySelector, resultSelector);
+
+        public static IQuery<TBase, IGrouping<TKey, TResult>> GroupBy<TBase, T, TKey, TResult>(
+            this IQuery<TBase, T> query,
+            Expression<Func<T, TKey>> keySelector,
+            Expression<Func<T, TResult>> resultSelector
+        ) => new GroupByQuery<TBase, T, TKey, TResult>(query, keySelector, resultSelector);
+        #endregion
+
         #region Skip
         public static IQuery<T> Skip<T>(
             this IQuery<T> query,
