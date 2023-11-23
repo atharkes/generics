@@ -16,20 +16,57 @@ namespace Generics.Specifications.Queries {
             => Child.Apply(queryable).GroupBy(KeySelector);
     }
 
-    public class GroupByQuery<TBase, TPreviousResult, TKey, TResult> : RecursiveQuery<TBase, TPreviousResult, IGrouping<TKey, TResult>> {
+    public class GroupByQuery<TBase, TPreviousResult, TKey, TElement> : RecursiveQuery<TBase, TPreviousResult, IGrouping<TKey, TElement>> {
         public Expression<Func<TPreviousResult, TKey>> KeySelector { get; }
-        public Expression<Func<TPreviousResult, TResult>>? ElementSelector { get; }
+        public Expression<Func<TPreviousResult, TElement>> ElementSelector { get; }
 
         public GroupByQuery(
             IQuery<TBase, TPreviousResult> child,
             Expression<Func<TPreviousResult, TKey>> keySelector,
-            Expression<Func<TPreviousResult, TResult>>? elementSelector = null
+            Expression<Func<TPreviousResult, TElement>> elementSelector
         ) : base(child) {
             KeySelector = keySelector;
             ElementSelector = elementSelector;
         }
 
-        public override IQueryable<IGrouping<TKey, TResult>> Apply(IQueryable<TBase> queryable)
+        public override IQueryable<IGrouping<TKey, TElement>> Apply(IQueryable<TBase> queryable)
             => Child.Apply(queryable).GroupBy(KeySelector, ElementSelector);
+    }
+
+    public class GroupByResultQuery<TBase, TPreviousResult, TKey, TResult> : RecursiveQuery<TBase, TPreviousResult, TResult> {
+        public Expression<Func<TPreviousResult, TKey>> KeySelector { get; }
+        public Expression<Func<TKey, IEnumerable<TPreviousResult>, TResult>> ResultSelector { get; }
+
+        public GroupByResultQuery(
+            IQuery<TBase, TPreviousResult> child,
+            Expression<Func<TPreviousResult, TKey>> keySelector,
+            Expression<Func<TKey, IEnumerable<TPreviousResult>, TResult>> resultSelector
+        ) : base(child) {
+            KeySelector = keySelector;
+            ResultSelector = resultSelector;
+        }
+
+        public override IQueryable<TResult> Apply(IQueryable<TBase> queryable)
+            => Child.Apply(queryable).GroupBy(KeySelector, ResultSelector);
+    }
+
+    public class GroupByResultQuery<TBase, TPreviousResult, TKey, TElement, TResult> : RecursiveQuery<TBase, TPreviousResult, TResult> {
+        public Expression<Func<TPreviousResult, TKey>> KeySelector { get; }
+        public Expression<Func<TPreviousResult, TElement>> ElementSelector { get; }
+        public Expression<Func<TKey, IEnumerable<TElement>, TResult>> ResultSelector { get; }
+
+        public GroupByResultQuery(
+            IQuery<TBase, TPreviousResult> child,
+            Expression<Func<TPreviousResult, TKey>> keySelector,
+            Expression<Func<TPreviousResult, TElement>> elementSelector,
+            Expression<Func<TKey, IEnumerable<TElement>, TResult>> resultSelector
+        ) : base(child) {
+            KeySelector = keySelector;
+            ElementSelector = elementSelector;
+            ResultSelector = resultSelector;
+        }
+
+        public override IQueryable<TResult> Apply(IQueryable<TBase> queryable)
+            => Child.Apply(queryable).GroupBy(KeySelector, ElementSelector, ResultSelector);
     }
 }
