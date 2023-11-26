@@ -137,6 +137,62 @@ namespace Generics.Specifications.Extensions {
         ) => new SelectManyQuery<TBase, T, TProperty>(query, selector);
         #endregion
 
+        #region GroupBy
+
+        #region GroupByGrouping
+        public static IQuery<T, IGrouping<TKey, T>> GroupBy<T, TKey>(
+            this IQuery<T> query,
+            Expression<Func<T, TKey>> keySelector
+        ) => new GroupByQuery<T, T, TKey>(query, keySelector);
+
+        public static IQuery<TBase, IGrouping<TKey, T>> GroupBy<TBase, T, TKey>(
+            this IQuery<TBase, T> query,
+            Expression<Func<T, TKey>> keySelector
+        ) => new GroupByQuery<TBase, T, TKey>(query, keySelector);
+
+        public static IQuery<T, IGrouping<TKey, TElement>> GroupBy<T, TKey, TElement>(
+            this IQuery<T> query,
+            Expression<Func<T, TKey>> keySelector,
+            Expression<Func<T, TElement>> elementSelector
+        ) => new GroupByQuery<T, T, TKey, TElement>(query, keySelector, elementSelector);
+
+        public static IQuery<TBase, IGrouping<TKey, TElement>> GroupBy<TBase, T, TKey, TElement>(
+            this IQuery<TBase, T> query,
+            Expression<Func<T, TKey>> keySelector,
+            Expression<Func<T, TElement>> elementSelector
+        ) => new GroupByQuery<TBase, T, TKey, TElement>(query, keySelector, elementSelector);
+        #endregion
+
+        #region GroupByResult
+        public static IQuery<T, TResult> GroupBy<T, TKey, TResult>(
+            this IQuery<T> query,
+            Expression<Func<T, TKey>> keySelector,
+            Expression<Func<TKey, IEnumerable<T>, TResult>> resultSelector
+        ) => new GroupByResultQuery<T, T, TKey, TResult>(query, keySelector, resultSelector);
+
+        public static IQuery<TBase, TResult> GroupBy<TBase, T, TKey, TResult>(
+            this IQuery<TBase, T> query,
+            Expression<Func<T, TKey>> keySelector,
+            Expression<Func<TKey, IEnumerable<T>, TResult>> resultSelector
+        ) => new GroupByResultQuery<TBase, T, TKey, TResult>(query, keySelector, resultSelector);
+
+        public static IQuery<T, TResult> GroupBy<T, TKey, TElement, TResult>(
+            this IQuery<T> query,
+            Expression<Func<T, TKey>> keySelector,
+            Expression<Func<T, TElement>> elementSelector,
+            Expression<Func<TKey, IEnumerable<TElement>, TResult>> resultSelector
+        ) => new GroupByResultQuery<T, T, TKey, TElement, TResult>(query, keySelector, elementSelector, resultSelector);
+
+        public static IQuery<TBase, TResult> GroupBy<TBase, T, TKey, TElement, TResult>(
+            this IQuery<TBase, T> query,
+            Expression<Func<T, TKey>> keySelector,
+            Expression<Func<T, TElement>> elementSelector,
+            Expression<Func<TKey, IEnumerable<TElement>, TResult>> resultSelector
+        ) => new GroupByResultQuery<TBase, T, TKey, TElement, TResult>(query, keySelector, elementSelector, resultSelector);
+        #endregion
+
+        #endregion
+
         #region Skip
         public static IQuery<T> Skip<T>(
             this IQuery<T> query,
